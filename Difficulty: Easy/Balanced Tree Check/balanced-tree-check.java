@@ -132,7 +132,6 @@ class Node
 class Tree
 {
     
-    //Function to check whether a binary tree is balanced or not.
     boolean isBalanced(Node root)
     {
         return height(root)!=-1;
