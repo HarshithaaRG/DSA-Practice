@@ -29,19 +29,18 @@ class GFG {
 class Solution {
     public int maxWeightCell(int[] exits) {
         int[] arr=new int[exits.length];
-        for(int y=0;y<exits.length;y++){
-            if(exits[y]!=-1){
-                arr[exits[y]]+=y;
+        for(int i=0;i<arr.length;i++){
+            if(exits[i]!=-1){
+                arr[exits[i]]+=i;
             }
         }
         int maxi=Integer.MIN_VALUE;
-        int ans=0;
-        for(int t=0;t<exits.length;t++){
-            if(arr[t]>maxi || (arr[t]==maxi && t>ans)){
-                maxi=arr[t];
-                ans=t;
+        int ans=-1;
+        for(int y=0;y<arr.length;y++){
+            if(arr[y]>maxi || (arr[y]==maxi && y>ans)){
+                maxi=arr[y];
+                ans=y;
             }
-            
         }
         return ans;
     }
