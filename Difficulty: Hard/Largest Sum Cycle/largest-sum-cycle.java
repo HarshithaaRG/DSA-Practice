@@ -70,50 +70,47 @@ class Solution{
             if(Edge[i]!=-1){
                 adj.get(i).add(Edge[i]);
             }
-
         }
         int[] vis=new int[N];
         int[] par=new int[N];
-        ArrayList<Integer> tmp=new ArrayList<>();
         long ans=-1;
+        List<Integer> seen=new ArrayList<>();
         for(int y=0;y<N;y++){
             if(vis[y]==0){
-                ans=Math.max(ans,dfs(vis,par,tmp,adj,y,-1));
-                for(int j:tmp){
-                    vis[j]=2;
+                ans=Math.max(ans,dfs(vis,par,y,-1,adj, seen));
+                for(int u:seen){
+                    vis[u]=2;
                 }
-                tmp.clear();
+                seen.clear();
+                
             }
-            
         }
         return ans;
         
     }
-    public static long dfs(int[] vis, int[] par, List<Integer> tmp,List<List<Integer>> adj, int node, int parent ){
+    public static long dfs(int[] vis,int[] par, int node, int parent, List<List<Integer>> adj, List<Integer> seen){
         vis[node]=1;
         par[node]=parent;
-        tmp.add(node);
-        long summ=-1;
-        for(int r:adj.get(node)){
-            if(vis[r]==0){
-                summ=dfs(vis,par,tmp,adj,r,node);
-                if(summ==-1){
-                    return summ;
-                }
-            }
-            else if(vis[r]==1){
-                long sum=r;
-                while(node!=r){
-                    sum=sum+node;
-                    node=par[node];
-                }
-                if(node==r){
+        seen.add(node);
+        long sum=-1;
+        for(int u:adj.get(node)){
+            if(vis[u]==0){
+                sum=dfs(vis,par,u,node,adj,seen);
+                if(sum==-1){
                     return sum;
                 }
                 
             }
+            else if(vis[u]==1){
+                sum=u;
+                while(node!=u){
+                    sum+=node;
+                    node=par[node];
+                }
+                return sum;
+            }
         }
-        return summ;
+        return sum;
         
     }
 }
