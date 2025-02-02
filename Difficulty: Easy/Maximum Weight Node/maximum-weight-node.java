@@ -28,20 +28,21 @@ class GFG {
 
 class Solution {
     public int maxWeightCell(int[] exits) {
-        int[] arr=new int[exits.length];
-        for(int i=0;i<arr.length;i++){
-            if(exits[i]!=-1){
-                arr[exits[i]]+=i;
+        int n=exits.length;
+        int[] temp=new int[n];
+        for(int y=0;y<n;y++){
+            if(exits[y]!=-1){
+                temp[exits[y]]+=y;
             }
         }
         int maxi=Integer.MIN_VALUE;
-        int ans=-1;
-        for(int y=0;y<arr.length;y++){
-            if(arr[y]>maxi || (arr[y]==maxi && y>ans)){
-                maxi=arr[y];
-                ans=y;
+        int node=-1;
+        for(int t=0;t<n;t++){
+            if(temp[t]>=maxi){
+                maxi=temp[t];
+                node=t;
             }
         }
-        return ans;
+        return node;
     }
 }
